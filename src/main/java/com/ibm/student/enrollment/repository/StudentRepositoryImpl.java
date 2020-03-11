@@ -1,6 +1,7 @@
 package com.ibm.student.enrollment.repository;
 
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,19 +27,19 @@ public class StudentRepositoryImpl implements StudentRepository {
 	 */
 	@Override
 	public Set<String> getUniqueStudents(String subject) {
-		return dataRepository.getEnrollments().stream().filter(e -> isSubjectIdPresent(subject, e))
-				.map(e -> e.getStudentId()).collect(Collectors.toSet());
+		return dataRepository.getEnrollments().stream().filter(e -> isSubjectCodePresent(subject, e))
+				.map(e -> e.getStudentId()).collect(Collectors.toCollection(TreeSet::new));
 	}
 
 	/**
-	 * Handles the subjectId. If no subjectId is present, then all records are
+	 * Handles the subjectCode. If no subjectCode is present, then all records are
 	 * returned
 	 *
 	 * @param subject the subject
 	 * @param e       the e
 	 * @return true, if is subject id present
 	 */
-	private boolean isSubjectIdPresent(String subject, Enrollment e) {
+	private boolean isSubjectCodePresent(String subject, Enrollment e) {
 		// If subject id is empty then return all unique students
 		if (StringUtils.isBlank(subject)) {
 			return true;

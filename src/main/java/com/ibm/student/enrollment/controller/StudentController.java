@@ -24,13 +24,13 @@ public class StudentController {
 	 * Gets unique students based on subject. If no subject specified, entire list
 	 * of students is returned
 	 *
-	 * @param subjectId the subject id <OPTIONAL>
+	 * @param subjectCode the subject id <OPTIONAL>
 	 * @return the unique students
 	 */
 	@GetMapping("/student")
 	public ResponseEntity<Set<String>> getUniqueStudents(
-			@RequestParam(name = "subject", required = false) String subjectId) {
-		return ResponseEntity.ok(studentRepository.getUniqueStudents(StringUtils.trim(subjectId)));
+			@RequestParam(name = "subject", required = false) String subjectCode) {
+		return ResponseEntity.ok(studentRepository.getUniqueStudents(StringUtils.trim(subjectCode)));
 	}
 
 }
